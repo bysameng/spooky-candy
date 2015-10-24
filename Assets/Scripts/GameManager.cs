@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour {
 	public float score = 0;
 	public Text scoreText;
 
+	EnemySpawner spawner;
+
+	void Awake(){
+		spawner = GetComponent<EnemySpawner>();
+	}
+
 
 	public void AddScore(float score){
 		this.score += score;
@@ -35,6 +41,7 @@ public class GameManager : MonoBehaviour {
 	public void BeginGame(){
 		Debug.Log("Game begin");
 		this.gameObject.SetActive(true);
+		spawner.Reset();
 		isGameOver = false;
 		score = 0;
 		AddScore(0);

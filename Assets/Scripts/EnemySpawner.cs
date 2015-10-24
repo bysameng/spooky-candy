@@ -17,6 +17,9 @@ public class EnemySpawner : MonoBehaviour {
 		manager = GetComponent<GameManager>();
 	}
 
+	public void Reset(){
+		timerFullValue = .7f;
+	}
 
 	void Update () {
 		TickDownTimer();
