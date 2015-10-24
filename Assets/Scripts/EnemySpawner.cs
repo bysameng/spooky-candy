@@ -3,16 +3,18 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 
-	float timer = 0;
-	float timerFullValue = 1f;
+	GameManager manager;
+
+	float timer = 1;
+	public float timerFullValue = .6f;
 
 	float fixedXSpawnLocation = -12;
 
 	public GameObject enemyPrefab;
 
 	// Use this for initialization
-	void Start () {
-
+	void Awake () {
+		manager = GetComponent<GameManager>();
 	}
 
 
@@ -28,15 +30,20 @@ public class EnemySpawner : MonoBehaviour {
 
 	void SpawnNewEnemy(){
 		//spawn here
-		float ySpawnPosition = Random.Range(-5f, 5f);
+		Random.seed = (int)(Time.deltaTime * Random.value * 10000);
+		float ySpawnPosition = Random.Range(-3f, 3f);
 		Vector3 spawnPosition = new Vector3(fixedXSpawnLocation, ySpawnPosition, 0);
-		Quaternion spawnRotation = Quaternion.Euler(0f, 90f, 0f);
-		GameObject.Instantiate(enemyPrefab, spawnPosition, spawnRotation);
+		GameObject.Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+		Enemy e = enemyPrefab.GetComponent<Enemy>();
+		e.manager = manager;
+		e.GetComponent<AssetMovement>().playerSpeed = Random.Range(5f, 15f);
 	}
 
 
 	void TickDownTimer(){
 		timer -= Time.deltaTime;
+		timerFullValue -= (Time.deltaTime / 22f);
+		timerFullValue = Mathf.Clamp(timerFullValue, .01f, 1f);
 	}
 
 

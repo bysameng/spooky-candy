@@ -4,6 +4,7 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 
 	public GameManager manager;
+	public GameObject gameOverScreen;
 
 
 	//call this function when startGame button is pressed
@@ -18,6 +19,18 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void StartMainMenu(){
+		gameOverScreen.gameObject.SetActive(false);
 		this.gameObject.SetActive(true);
+	}
+
+	public void StartGameOverScreen(){
+		manager.gameObject.SetActive(false);
+		gameOverScreen.gameObject.SetActive(true);
+		var allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach(var c in allEnemies){
+			if (c != null){
+				Destroy(c.gameObject);
+			}
+		}
 	}
 }
