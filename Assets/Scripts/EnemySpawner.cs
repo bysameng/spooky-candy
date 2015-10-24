@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour {
 	GameManager manager;
 
 	float timer = 1;
-	public float timerFullValue = .6f;
+	public float timerFullValue = 2f;
 
 	float fixedXSpawnLocation = -12;
 
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void Reset(){
-		timerFullValue = .7f;
+		timerFullValue = 2f;
 	}
 
 	void Update () {
@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	void TickDownTimer(){
 		timer -= Time.deltaTime;
-		timerFullValue -= (Time.deltaTime / 22f);
+		timerFullValue -= (Time.deltaTime / 62f);
 		timerFullValue = Mathf.Clamp(timerFullValue, .01f, 1f);
 	}
 
